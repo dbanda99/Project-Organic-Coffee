@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products | Organic Man Coffee Trike</title>
+    <meta name="description" content="Shop organic coffee blends, whole bean bags, and ready-to-drink coffee from Organic Man Coffee Trike." />
+    <link rel="icon" href="src/assets/icon-coffee.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="src/assets/icon-coffee.ico" type="image/x-icon" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Products | Organic Man Coffee Trike" />
+    <meta property="og:description" content="Shop organic coffee blends, whole bean bags, and ready-to-drink coffee from Organic Man Coffee Trike." />
+    <meta property="og:image" content="src/assets/meta-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Products | Organic Man Coffee Trike" />
+    <meta name="twitter:description" content="Shop organic coffee blends, whole bean bags, and ready-to-drink coffee from Organic Man Coffee Trike." />
+    <meta name="twitter:image" content="src/assets/meta-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --forest: #233c2a;
+        --leaf: #61763b;
+        --cream: #fff8e8;
+        --paper: #faf6ec;
+        --amber: #ef9b3f;
+        --clay: #b8612d;
+        --ink: #181713;
+        --muted: #746d60;
+        --line: rgba(35, 60, 42, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+        color: var(--ink);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(180deg, rgba(255, 248, 232, 0.92), rgba(250, 246, 236, 0.98)),
+          url("src/assets/background-base.png") center top / cover fixed no-repeat;
+        font-family: "DM Sans", Arial, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px clamp(18px, 4vw, 64px);
+        border-bottom: 1px solid rgba(35, 60, 42, 0.12);
+        background: rgba(250, 246, 236, 0.86);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        width: clamp(82px, 8vw, 118px);
+        filter: drop-shadow(0 5px 10px rgba(35, 60, 42, 0.16));
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        border-radius: 999px;
+        color: var(--forest);
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: var(--forest);
+        color: var(--cream);
+        transform: translateY(-1px);
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(35, 60, 42, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 252, 244, 0.82);
+        color: var(--forest);
+        cursor: pointer;
+        box-shadow: 0 10px 22px rgba(35, 60, 42, 0.14);
+      }
+
+      .menu-toggle span,
+      .menu-toggle::before,
+      .menu-toggle::after {
+        display: block;
+        width: 19px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+        content: "";
+        transition: transform 0.24s ease, opacity 0.24s ease;
+      }
+
+      .menu-toggle {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .site-header.menu-open .menu-toggle::before {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .site-header.menu-open .menu-toggle span {
+        opacity: 0;
+      }
+
+      .site-header.menu-open .menu-toggle::after {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .page-shell {
+        padding: clamp(26px, 4vw, 56px) clamp(18px, 4vw, 64px) 56px;
+      }
+
+      .page-title {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 28px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--clay);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--forest);
+        font-size: clamp(38px, 5vw, 72px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+      }
+
+      .intro {
+        max-width: 520px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      .catalog-layout {
+        display: grid;
+        grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+        gap: clamp(22px, 3vw, 34px);
+        align-items: start;
+      }
+
+      .filters {
+        position: sticky;
+        top: 94px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 252, 244, 0.86);
+        box-shadow: 0 18px 44px rgba(35, 60, 42, 0.1);
+        overflow: hidden;
+      }
+
+      .filters-header {
+        padding: 20px 20px 16px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(135deg, rgba(35, 60, 42, 0.08), rgba(239, 155, 63, 0.12));
+      }
+
+      .filters-header h2 {
+        margin: 0 0 4px;
+        color: var(--forest);
+        font-size: 20px;
+      }
+
+      .filters-header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .filter-group {
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .filter-group:last-child {
+        border-bottom: 0;
+      }
+
+      .filter-title {
+        margin: 0 0 12px;
+        color: var(--forest);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .check-row,
+      .radio-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin: 10px 0;
+        color: #3d3a31;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      input[type="checkbox"],
+      input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--leaf);
+      }
+
+      .price-range {
+        display: grid;
+        gap: 12px;
+      }
+
+      .range-track {
+        position: relative;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(35, 60, 42, 0.14);
+      }
+
+      .range-track::before {
+        position: absolute;
+        left: 18%;
+        right: 22%;
+        height: 100%;
+        border-radius: inherit;
+        content: "";
+        background: var(--leaf);
+      }
+
+      .range-values {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .filter-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 18px 20px 20px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 42px;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 999px;
+        cursor: pointer;
+        font: 800 13px/1 "DM Sans", Arial, sans-serif;
+      }
+
+      .button.primary {
+        background: var(--forest);
+        color: var(--cream);
+      }
+
+      .button.secondary {
+        background: rgba(35, 60, 42, 0.08);
+        color: var(--forest);
+      }
+
+      .toolbar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 252, 244, 0.78);
+        box-shadow: 0 14px 34px rgba(35, 60, 42, 0.08);
+      }
+
+      .result-count {
+        color: var(--forest);
+        font-weight: 800;
+      }
+
+      .sort-control {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      select {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--cream);
+        color: var(--forest);
+        font: 800 13px "DM Sans", Arial, sans-serif;
+        padding: 0 34px 0 14px;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .empty-state {
+        display: none;
+        padding: 34px;
+        border: 1px dashed rgba(35, 60, 42, 0.24);
+        border-radius: 16px;
+        background: rgba(255, 252, 244, 0.76);
+        color: var(--muted);
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .product-card {
+        position: relative;
+        display: grid;
+        overflow: hidden;
+        border: 1px solid rgba(35, 60, 42, 0.12);
+        border-radius: 18px;
+        background: rgba(255, 252, 244, 0.92);
+        box-shadow: 0 18px 40px rgba(35, 60, 42, 0.1);
+        transition: transform 0.24s ease, box-shadow 0.24s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 54px rgba(35, 60, 42, 0.16);
+      }
+
+      .product-media {
+        position: relative;
+        display: grid;
+        min-height: 250px;
+        place-items: center;
+        background:
+          radial-gradient(circle at 50% 35%, #fff 0 24%, rgba(244, 249, 237, 0.92) 55%, rgba(218, 229, 201, 0.78)),
+          linear-gradient(135deg, rgba(239, 155, 63, 0.14), rgba(97, 118, 59, 0.1));
+      }
+
+      .product-media img {
+        width: min(62%, 220px);
+        filter: drop-shadow(0 16px 16px rgba(35, 60, 42, 0.18));
+        transition: transform 0.28s ease;
+      }
+
+      .product-card:hover .product-media img {
+        transform: scale(1.04) rotate(-1deg);
+      }
+
+      .tag {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        display: inline-flex;
+        min-height: 28px;
+        align-items: center;
+        border-radius: 999px;
+        background: rgba(35, 60, 42, 0.9);
+        color: var(--cream);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding: 0 10px;
+        text-transform: uppercase;
+      }
+
+      .card-body {
+        display: grid;
+        gap: 12px;
+        padding: 18px;
+      }
+
+      .product-topline {
+        display: flex;
+        gap: 10px;
+        align-items: start;
+        justify-content: space-between;
+      }
+
+      .product-card h3 {
+        margin: 0;
+        color: var(--forest);
+        font-size: 21px;
+        line-height: 1.12;
+      }
+
+      .price {
+        color: var(--clay);
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .product-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .meta-pill {
+        display: inline-flex;
+        min-height: 26px;
+        align-items: center;
+        border-radius: 999px;
+        background: rgba(97, 118, 59, 0.1);
+        color: var(--forest);
+        font-size: 11px;
+        font-weight: 800;
+        padding: 0 9px;
+      }
+
+      .card-footer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .rating {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        color: #d68023;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+      }
+
+      .rating-score {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .add-button {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: var(--amber);
+        color: #20150b;
+        font-size: 13px;
+        font-weight: 800;
+        padding: 0 14px;
+      }
+
+      .site-footer {
+        padding: 42px clamp(18px, 4vw, 64px) 28px;
+        background: linear-gradient(135deg, #192b20, #2d432c);
+        color: var(--cream);
+      }
+
+      .footer-top {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 24px;
+        border-bottom: 1px solid rgba(255, 248, 232, 0.16);
+      }
+
+      .footer-logo {
+        width: 118px;
+        filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.24));
+      }
+
+      .footer-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .footer-nav a {
+        color: rgba(255, 248, 232, 0.84);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .footer-nav a:hover {
+        color: #ffd889;
+      }
+
+      .footer-socials {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .footer-socials a {
+        display: inline-flex;
+        width: 34px;
+        height: 34px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 248, 232, 0.32);
+        border-radius: 999px;
+        background: rgba(255, 248, 232, 0.08);
+        color: var(--cream);
+        transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+      }
+
+      .footer-socials a:hover {
+        background: var(--cream);
+        color: var(--forest);
+        transform: translateY(-2px);
+      }
+
+      .footer-socials svg {
+        width: 17px;
+        height: 17px;
+        fill: currentColor;
+      }
+
+      .footer-bottom {
+        padding-top: 18px;
+        color: rgba(255, 248, 232, 0.62);
+        font-size: 13px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      @media (max-width: 1100px) {
+        .catalog-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          position: static;
+        }
+
+        .product-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .site-header {
+          align-items: center;
+          flex-direction: row;
+          padding: 10px 16px;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 64px;
+          left: 12px;
+          right: 12px;
+          display: grid;
+          gap: 4px;
+          width: calc(100vw - 24px);
+          padding: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          border-radius: 14px;
+          background: rgba(25, 43, 32, 0.92);
+          box-shadow: 0 18px 34px rgba(35, 60, 42, 0.24);
+          opacity: 0;
+          transform: translateY(-8px);
+          pointer-events: none;
+          backdrop-filter: blur(10px);
+          transition: opacity 0.24s ease, transform 0.24s ease;
+        }
+
+        .nav-links a {
+          justify-content: flex-start;
+          color: var(--cream);
+          min-height: 44px;
+          padding: 0 12px;
+          border-radius: 10px;
+          font-size: 15px;
+          letter-spacing: 0;
+          text-transform: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+          background: rgba(255, 216, 137, 0.14);
+          color: var(--cream);
+        }
+
+        .menu-toggle {
+          display: flex;
+        }
+
+        .site-header.menu-open .nav-links {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+
+        .page-title {
+          grid-template-columns: 1fr;
+        }
+
+        .catalog-layout {
+          gap: 20px;
+        }
+
+        .toolbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-media {
+          min-height: 230px;
+        }
+
+        .footer-top {
+          align-items: center;
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-nav {
+          gap: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Organic Man Coffee Trike home">
+        <img src="src/assets/organic-man-logo-green.png" alt="Organic Man Coffee Trike" />
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false">
+        <span></span>
+      </button>
+      <nav class="nav-links" id="primary-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a class="active" href="products.html">Products</a>
+        <a href="story.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <section class="page-title" aria-labelledby="products-heading">
+        <div>
+          <p class="eyebrow">Shop Organic Man</p>
+          <h1 id="products-heading">All Products</h1>
+        </div>
+        <p class="intro">
+          Explore whole bean coffee, morning-ready cups, and organic roasts shaped for smooth flavor, everyday rituals,
+          and a little travel in every sip.
+        </p>
+      </section>
+
+      <section class="catalog-layout" aria-label="Product catalog">
+        <aside class="filters" aria-label="Product filters">
+          <div class="filters-header">
+            <h2>Filters</h2>
+            <p>Refine by roast, format, and flavor profile.</p>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">Category</h3>
+            <label class="check-row"><input type="checkbox" name="category" value="whole-bean" checked /> Whole Bean</label>
+            <label class="check-row"><input type="checkbox" name="category" value="ground" /> Ground Coffee</label>
+            <label class="check-row"><input type="checkbox" name="category" value="to-go" /> To-Go Cups</label>
+            <label class="check-row"><input type="checkbox" name="category" value="bundle" /> Bundles</label>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">Roast</h3>
+            <label class="radio-row"><input type="radio" name="roast" value="all" /> All</label>
+            <label class="radio-row"><input type="radio" name="roast" value="light" /> Light</label>
+            <label class="radio-row"><input type="radio" name="roast" value="medium" checked /> Medium</label>
+            <label class="radio-row"><input type="radio" name="roast" value="dark" /> Dark</label>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">Price</h3>
+            <div class="price-range">
+              <div class="range-track"></div>
+              <div class="range-values">
+                <span>$12</span>
+                <span>$42</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">Tasting Notes</h3>
+            <label class="check-row"><input type="checkbox" name="note" value="chocolate" /> Chocolate</label>
+            <label class="check-row"><input type="checkbox" name="note" value="citrus" /> Citrus</label>
+            <label class="check-row"><input type="checkbox" name="note" value="caramel" /> Caramel</label>
+            <label class="check-row"><input type="checkbox" name="note" value="nutty" /> Nutty</label>
+          </div>
+
+          <div class="filter-actions">
+            <button class="button secondary" type="button">Reset</button>
+            <button class="button primary" type="button">Apply</button>
+          </div>
+        </aside>
+
+        <section aria-label="Products">
+          <div class="toolbar">
+            <div class="result-count">Showing 8 products</div>
+            <label class="sort-control">
+              Sort by
+              <select id="sort-products">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="rating-desc">Best Rated</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="product-grid">
+            <article class="product-card" data-category="whole-bean" data-roast="medium" data-notes="caramel chocolate citrus" data-price="18" data-rating="4.9">
+              <div class="product-media">
+                <span class="tag">Best Seller</span>
+                <img src="src/assets/organic-man-coffee-bag.png" alt="Highland Dawn coffee bag" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Highland Dawn</h3>
+                  <div class="price">$18</div>
+                </div>
+                <p>Organic medium roast with caramel, cocoa, and a clean citrus finish.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">Medium</span>
+                  <span class="meta-pill">12 oz</span>
+                  <span class="meta-pill">Whole Bean</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★★</span><span class="rating-score">4.9</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="whole-bean" data-roast="dark" data-notes="chocolate nutty" data-price="22" data-rating="4.8">
+              <div class="product-media">
+                <span class="tag">Organic</span>
+                <img src="src/assets/organic-man-coffee-bag.png" alt="Forest Reserve coffee bag" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Forest Reserve</h3>
+                  <div class="price">$22</div>
+                </div>
+                <p>A fuller roast with toasted almond, dark chocolate, and a round finish.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">Dark</span>
+                  <span class="meta-pill">12 oz</span>
+                  <span class="meta-pill">Single Origin</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★★</span><span class="rating-score">4.8</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="to-go" data-roast="medium" data-notes="caramel nutty" data-price="6" data-rating="4.6">
+              <div class="product-media">
+                <span class="tag">Smooth</span>
+                <img src="src/assets/organic-man-coffee-cup.png" alt="Morning Trike coffee cup" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Morning Trike Cup</h3>
+                  <div class="price">$6</div>
+                </div>
+                <p>Ready for the road: a balanced cup with soft sweetness and bold aroma.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">To-Go</span>
+                  <span class="meta-pill">Hot Cup</span>
+                  <span class="meta-pill">Fresh</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★☆</span><span class="rating-score">4.6</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="whole-bean ground" data-roast="medium" data-notes="caramel citrus nutty" data-price="20" data-rating="4.7">
+              <div class="product-media">
+                <span class="tag">New</span>
+                <img src="src/assets/organic-man-coffee-bag.png" alt="Amber House coffee bag" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Amber House</h3>
+                  <div class="price">$20</div>
+                </div>
+                <p>Comforting and bright with brown sugar, orange peel, and toasted pecan.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">Medium</span>
+                  <span class="meta-pill">Air Roasted</span>
+                  <span class="meta-pill">12 oz</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★★</span><span class="rating-score">4.7</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="bundle whole-bean" data-roast="medium dark" data-notes="chocolate caramel nutty" data-price="38" data-rating="4.9">
+              <div class="product-media">
+                <span class="tag">Bundle</span>
+                <img src="src/assets/organic-man-coffee-bag.png" alt="Trail Pack coffee bundle" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Trail Pack</h3>
+                  <div class="price">$38</div>
+                </div>
+                <p>Two signature bags for weekday brews, weekend mornings, and shared cups.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">Bundle</span>
+                  <span class="meta-pill">24 oz</span>
+                  <span class="meta-pill">Organic</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★★</span><span class="rating-score">4.9</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="whole-bean ground" data-roast="light" data-notes="citrus" data-price="19" data-rating="4.5">
+              <div class="product-media">
+                <span class="tag">Light</span>
+                <img src="src/assets/organic-man-coffee-bag.png" alt="Cloudline coffee bag" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Cloudline</h3>
+                  <div class="price">$19</div>
+                </div>
+                <p>Light roast clarity with floral aromatics, honeyed sweetness, and lemon zest.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">Light</span>
+                  <span class="meta-pill">12 oz</span>
+                  <span class="meta-pill">Washed</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★☆</span><span class="rating-score">4.5</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="to-go" data-roast="medium" data-notes="nutty" data-price="5" data-rating="4.8">
+              <div class="product-media">
+                <span class="tag">Daily</span>
+                <img src="src/assets/organic-man-coffee-cup.png" alt="South Texas coffee cup" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>South Texas Cup</h3>
+                  <div class="price">$5</div>
+                </div>
+                <p>A daily-drinker cup with nutty warmth, gentle acidity, and a smooth body.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">To-Go</span>
+                  <span class="meta-pill">Medium</span>
+                  <span class="meta-pill">Hot Cup</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★★</span><span class="rating-score">4.8</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="whole-bean ground" data-roast="dark" data-notes="chocolate" data-price="21" data-rating="4.7">
+              <div class="product-media">
+                <span class="tag">Bold</span>
+                <img src="src/assets/organic-man-coffee-bag.png" alt="Night Ride coffee bag" />
+              </div>
+              <div class="card-body">
+                <div class="product-topline">
+                  <h3>Night Ride</h3>
+                  <div class="price">$21</div>
+                </div>
+                <p>Rich and steady with molasses, roasted cacao, and a quiet smoky finish.</p>
+                <div class="meta-row">
+                  <span class="meta-pill">Dark</span>
+                  <span class="meta-pill">12 oz</span>
+                  <span class="meta-pill">Bold</span>
+                </div>
+                <div class="card-footer">
+                  <div class="rating"><span>★★★★★</span><span class="rating-score">4.7</span></div>
+                  <a class="add-button" href="#">Add</a>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="empty-state">No products match those filters. Try another roast or category.</div>
+        </section>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="footer-logo" href="index.html" aria-label="Organic Man Coffee Trike home">
+          <img src="src/assets/organic-man-logo-green.png" alt="Organic Man Coffee Trike" />
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
+          <a href="story.html">Our Story</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <nav class="footer-socials" aria-label="Social links">
+          <a href="https://facebook.com" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 8.4V6.6c0-.8.2-1.2 1.3-1.2H17V2.2c-.8-.1-1.7-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5v3.5h2.8V22H14V11.9h2.9l.5-3.5H14z" />
+            </svg>
+          </a>
+          <a href="https://instagram.com" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zm8.7 1.7a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM12 7.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2z" />
+            </svg>
+          </a>
+          <a href="https://twitter.com" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14.4 10.5 21.5 2h-3.1l-5.5 6.6L8.5 2H2.2l7.5 11.1L2 22h3.1l6.1-7.1 4.8 7.1h6.2l-7.8-11.5zm-2.1 2.4-1.1-1.6L6.1 4.4h1.3l4.3 6.1 1.1 1.6 5.4 7.6h-1.3l-4.6-6.8z" />
+            </svg>
+          </a>
+          <a href="https://tiktok.com" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16.6 2c.4 3 2.1 4.8 5 5v3.4c-1.8.1-3.4-.5-5-1.6v6.5c0 4.8-5.2 8.1-9.5 5.7-4.8-2.7-4.3-9.8.8-11.8 1-.4 2-.5 3.1-.3v3.6c-.5-.2-1.1-.2-1.7 0-2.1.7-2.7 3.6-1 5.1 1.7 1.6 4.7.4 4.7-2V2h3.6z" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+      <div class="footer-bottom">© 2026 Organic Man Coffee Trike. All Rights Reserved.</div>
+    </footer>
+    <script>
+      const siteHeader = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
+      const productGrid = document.querySelector(".product-grid");
+      const cards = [...document.querySelectorAll(".product-card")];
+      const resultCount = document.querySelector(".result-count");
+      const emptyState = document.querySelector(".empty-state");
+      const categoryInputs = [...document.querySelectorAll('input[name="category"]')];
+      const roastInputs = [...document.querySelectorAll('input[name="roast"]')];
+      const noteInputs = [...document.querySelectorAll('input[name="note"]')];
+      const sortSelect = document.querySelector("#sort-products");
+      const resetButton = document.querySelector(".button.secondary");
+      const applyButton = document.querySelector(".button.primary");
+
+      menuToggle.addEventListener("click", () => {
+        const isOpen = siteHeader.classList.toggle("menu-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      });
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          siteHeader.classList.remove("menu-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+        });
+      });
+
+      const getCheckedValues = (inputs) => inputs.filter((input) => input.checked).map((input) => input.value);
+      const hasAny = (source, selected) => selected.length === 0 || selected.some((value) => source.includes(value));
+
+      const productMatches = (card) => {
+        const selectedCategories = getCheckedValues(categoryInputs);
+        const selectedNotes = getCheckedValues(noteInputs);
+        const selectedRoast = document.querySelector('input[name="roast"]:checked')?.value || "all";
+        const categories = card.dataset.category.split(" ");
+        const notes = card.dataset.notes.split(" ");
+        const roasts = card.dataset.roast.split(" ");
+
+        return (
+          hasAny(categories, selectedCategories) &&
+          hasAny(notes, selectedNotes) &&
+          (selectedRoast === "all" || roasts.includes(selectedRoast))
+        );
+      };
+
+      const sortCards = (visibleCards) => {
+        const sorted = [...visibleCards];
+        if (sortSelect.value === "price-asc") {
+          sorted.sort((a, b) => Number(a.dataset.price) - Number(b.dataset.price));
+        }
+        if (sortSelect.value === "rating-desc") {
+          sorted.sort((a, b) => Number(b.dataset.rating) - Number(a.dataset.rating));
+        }
+        sorted.forEach((card) => productGrid.appendChild(card));
+      };
+
+      const updateProducts = () => {
+        const visibleCards = cards.filter(productMatches);
+        cards.forEach((card) => {
+          card.hidden = !visibleCards.includes(card);
+        });
+        sortCards(visibleCards);
+        resultCount.textContent = `Showing ${visibleCards.length} product${visibleCards.length === 1 ? "" : "s"}`;
+        emptyState.style.display = visibleCards.length ? "none" : "block";
+      };
+
+      [...categoryInputs, ...roastInputs, ...noteInputs].forEach((input) => {
+        input.addEventListener("change", updateProducts);
+      });
+      sortSelect.addEventListener("change", updateProducts);
+      applyButton.addEventListener("click", updateProducts);
+      resetButton.addEventListener("click", () => {
+        categoryInputs.forEach((input) => {
+          input.checked = input.value === "whole-bean";
+        });
+        noteInputs.forEach((input) => {
+          input.checked = false;
+        });
+        roastInputs.forEach((input) => {
+          input.checked = input.value === "medium";
+        });
+        sortSelect.value = "featured";
+        updateProducts();
+      });
+
+      updateProducts();
+    </script>
+  </body>
+</html>

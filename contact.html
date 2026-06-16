@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Organic Man Coffee Trike</title>
+    <meta name="description" content="Contact Organic Man Coffee Trike for coffee, catering, events, wholesale, and questions." />
+    <link rel="icon" href="src/assets/icon-coffee.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="src/assets/icon-coffee.ico" type="image/x-icon" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contact Us | Organic Man Coffee Trike" />
+    <meta property="og:description" content="Contact Organic Man Coffee Trike for coffee, catering, events, wholesale, and questions." />
+    <meta property="og:image" content="src/assets/meta-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Contact Us | Organic Man Coffee Trike" />
+    <meta name="twitter:description" content="Contact Organic Man Coffee Trike for coffee, catering, events, wholesale, and questions." />
+    <meta name="twitter:image" content="src/assets/meta-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --forest: #192b20;
+        --moss: #596f38;
+        --cream: #fff8e8;
+        --paper: #faf2e3;
+        --amber: #ef9b3f;
+        --clay: #b8612d;
+        --ink: #151510;
+        --muted: #716a5e;
+        --line: rgba(25, 43, 32, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+        color: var(--ink);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 12% 10%, rgba(239, 155, 63, 0.2), transparent 26rem),
+          linear-gradient(180deg, rgba(255, 248, 232, 0.94), rgba(250, 242, 227, 1)),
+          url("src/assets/background-base.png") center top / cover fixed no-repeat;
+        font-family: "DM Sans", Arial, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px clamp(18px, 4vw, 64px);
+        border-bottom: 1px solid rgba(25, 43, 32, 0.12);
+        background: rgba(250, 242, 227, 0.86);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        width: clamp(82px, 8vw, 118px);
+        filter: drop-shadow(0 5px 10px rgba(25, 43, 32, 0.16));
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        border-radius: 999px;
+        color: var(--forest);
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: var(--forest);
+        color: var(--cream);
+        transform: translateY(-1px);
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(25, 43, 32, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 252, 244, 0.82);
+        color: var(--forest);
+        cursor: pointer;
+        box-shadow: 0 10px 22px rgba(25, 43, 32, 0.14);
+      }
+
+      .menu-toggle span,
+      .menu-toggle::before,
+      .menu-toggle::after {
+        display: block;
+        width: 19px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+        content: "";
+        transition: transform 0.24s ease, opacity 0.24s ease;
+      }
+
+      .menu-toggle {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .site-header.menu-open .menu-toggle::before {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .site-header.menu-open .menu-toggle span {
+        opacity: 0;
+      }
+
+      .site-header.menu-open .menu-toggle::after {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .page-shell {
+        padding: clamp(42px, 6vw, 86px) clamp(18px, 6vw, 88px) 72px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+        gap: clamp(28px, 6vw, 82px);
+        align-items: stretch;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        margin: 0 0 16px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(239, 155, 63, 0.16);
+        color: var(--clay);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        color: var(--forest);
+        font-size: clamp(52px, 7.4vw, 108px);
+        line-height: 0.9;
+        letter-spacing: -0.07em;
+      }
+
+      .lead {
+        max-width: 620px;
+        margin: 24px 0 0;
+        color: #4e493f;
+        font-size: clamp(18px, 2vw, 23px);
+        font-weight: 700;
+        line-height: 1.55;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .info-card {
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 18px;
+        background: rgba(255, 252, 244, 0.82);
+        box-shadow: 0 16px 36px rgba(25, 43, 32, 0.1);
+      }
+
+      .info-card span {
+        color: var(--clay);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .info-card strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--forest);
+        font-size: 18px;
+      }
+
+      .form-card {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        padding: clamp(22px, 4vw, 34px);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 28px;
+        background: rgba(255, 252, 244, 0.9);
+        box-shadow: 0 26px 64px rgba(25, 43, 32, 0.16);
+      }
+
+      .form-card h2 {
+        margin: 0 0 8px;
+        color: var(--forest);
+        font-size: clamp(28px, 3vw, 42px);
+        letter-spacing: -0.04em;
+      }
+
+      .form-card p {
+        margin: 0 0 22px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      form {
+        display: grid;
+        flex: 1;
+        gap: 14px;
+        grid-template-rows: auto auto minmax(150px, 1fr) auto;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        color: var(--forest);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 248, 232, 0.72);
+        color: var(--ink);
+        font: 600 15px "DM Sans", Arial, sans-serif;
+        padding: 13px 14px;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      textarea {
+        height: 100%;
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: rgba(239, 155, 63, 0.8);
+        box-shadow: 0 0 0 4px rgba(239, 155, 63, 0.16);
+      }
+
+      .submit-row {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 4px;
+      }
+
+      .submit-button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 999px;
+        background: var(--forest);
+        color: var(--cream);
+        cursor: pointer;
+        font: 800 15px "DM Sans", Arial, sans-serif;
+        padding: 0 24px;
+      }
+
+      .form-note {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .visit-band {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+        gap: clamp(24px, 5vw, 72px);
+        align-items: center;
+        margin-top: clamp(42px, 7vw, 86px);
+        border-radius: 32px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #192b20, #3f552e);
+        color: var(--cream);
+      }
+
+      .visit-copy {
+        padding: clamp(28px, 5vw, 58px);
+      }
+
+      .visit-copy h2 {
+        max-width: 680px;
+        margin: 0;
+        font-size: clamp(34px, 5vw, 68px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+      }
+
+      .visit-copy p {
+        max-width: 620px;
+        color: rgba(255, 248, 232, 0.82);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .hours {
+        display: grid;
+        gap: 8px;
+        margin-top: 22px;
+        color: rgba(255, 248, 232, 0.82);
+        font-weight: 700;
+      }
+
+      .visit-product {
+        align-self: end;
+        padding: 28px 42px 0 0;
+      }
+
+      .visit-product img {
+        width: min(100%, 300px);
+        margin-left: auto;
+        filter: drop-shadow(0 28px 30px rgba(0, 0, 0, 0.3));
+      }
+
+      .site-footer {
+        padding: 42px clamp(18px, 4vw, 64px) 28px;
+        background: linear-gradient(135deg, #192b20, #2d432c);
+        color: var(--cream);
+      }
+
+      .footer-top {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 24px;
+        border-bottom: 1px solid rgba(255, 248, 232, 0.16);
+      }
+
+      .footer-logo {
+        width: 118px;
+        filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.24));
+      }
+
+      .footer-nav,
+      .footer-socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .footer-nav a {
+        color: rgba(255, 248, 232, 0.84);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .footer-nav a:hover {
+        color: #ffd889;
+      }
+
+      .footer-socials {
+        gap: 10px;
+      }
+
+      .footer-socials a {
+        display: inline-flex;
+        width: 34px;
+        height: 34px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 248, 232, 0.32);
+        border-radius: 999px;
+        background: rgba(255, 248, 232, 0.08);
+        color: var(--cream);
+      }
+
+      .footer-socials svg {
+        width: 17px;
+        height: 17px;
+        fill: currentColor;
+      }
+
+      .footer-bottom {
+        padding-top: 18px;
+        color: rgba(255, 248, 232, 0.62);
+        font-size: 13px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .visit-band {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          align-items: start;
+        }
+
+        .form-card {
+          min-height: 0;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .field-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .submit-row {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .visit-product {
+          padding: 0 28px 28px;
+        }
+
+        .visit-product img {
+          margin: 0 auto;
+        }
+
+        .footer-top {
+          align-items: center;
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .site-header {
+          padding: 10px 16px;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 64px;
+          left: 12px;
+          right: 12px;
+          display: grid;
+          gap: 4px;
+          width: calc(100vw - 24px);
+          padding: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          border-radius: 14px;
+          background: rgba(25, 43, 32, 0.92);
+          box-shadow: 0 18px 34px rgba(25, 43, 32, 0.24);
+          opacity: 0;
+          transform: translateY(-8px);
+          pointer-events: none;
+          backdrop-filter: blur(10px);
+          transition: opacity 0.24s ease, transform 0.24s ease;
+        }
+
+        .nav-links a {
+          justify-content: flex-start;
+          color: var(--cream);
+          min-height: 44px;
+          padding: 0 12px;
+          border-radius: 10px;
+          font-size: 15px;
+          letter-spacing: 0;
+          text-transform: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+          background: rgba(255, 216, 137, 0.14);
+          color: var(--cream);
+        }
+
+        .menu-toggle {
+          display: flex;
+        }
+
+        .site-header.menu-open .nav-links {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Organic Man Coffee Trike home">
+        <img src="src/assets/organic-man-logo-green.png" alt="Organic Man Coffee Trike" />
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false">
+        <span></span>
+      </button>
+      <nav class="nav-links" id="primary-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="story.html">Our Story</a>
+        <a class="active" href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Contact Us</p>
+          <h1>Let’s brew something together.</h1>
+          <p class="lead">
+            Questions, events, wholesale, catering, or just a note about coffee, send it our way. Organic Man Coffee
+            Trike is always ready for the next conversation.
+          </p>
+          <div class="contact-grid">
+            <article class="info-card">
+              <span>Email</span>
+              <strong>hello@organicman.coffee</strong>
+            </article>
+            <article class="info-card">
+              <span>Location</span>
+              <strong>Laredo, Texas</strong>
+            </article>
+            <article class="info-card">
+              <span>Events</span>
+              <strong>Catering & mobile coffee</strong>
+            </article>
+            <article class="info-card">
+              <span>Wholesale</span>
+              <strong>Organic air-roasted beans</strong>
+            </article>
+          </div>
+        </div>
+
+        <section class="form-card" aria-labelledby="contact-form-title">
+          <h2 id="contact-form-title">Send a message</h2>
+          <p>Tell us what you’re looking for and we’ll get back to you soon.</p>
+          <form>
+            <div class="field-grid">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Your name" />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" placeholder="you@example.com" />
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Reason
+                <select name="reason">
+                  <option>General question</option>
+                  <option>Event / catering</option>
+                  <option>Wholesale coffee</option>
+                  <option>Product support</option>
+                </select>
+              </label>
+              <label>
+                Phone
+                <input type="tel" name="phone" placeholder="Optional" />
+              </label>
+            </div>
+            <label>
+              Message
+              <textarea name="message" placeholder="How can we help?"></textarea>
+            </label>
+            <div class="submit-row">
+              <button class="submit-button" type="button">Send Message</button>
+              <span class="form-note">Demo form: connect it to your preferred email or form service.</span>
+            </div>
+          </form>
+        </section>
+      </section>
+
+      <section class="visit-band">
+        <div class="visit-copy">
+          <p class="eyebrow">Visit The Coffee Bar</p>
+          <h2>From South Texas to your next cup.</h2>
+          <p>
+            Reach out for fresh organic coffee, event service, or a custom roast conversation. We’ll help you find the
+            right cup for the moment.
+          </p>
+          <div class="hours">
+            <span>Monday - Friday / 8:00 AM - 5:00 PM</span>
+            <span>Weekend events by request</span>
+          </div>
+        </div>
+        <div class="visit-product">
+          <img src="src/assets/organic-man-coffee-cup.png" alt="Organic Man Coffee cup" />
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="footer-logo" href="index.html" aria-label="Organic Man Coffee Trike home">
+          <img src="src/assets/organic-man-logo-green.png" alt="Organic Man Coffee Trike" />
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
+          <a href="story.html">Our Story</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <nav class="footer-socials" aria-label="Social links">
+          <a href="https://facebook.com" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 8.4V6.6c0-.8.2-1.2 1.3-1.2H17V2.2c-.8-.1-1.7-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5v3.5h2.8V22H14V11.9h2.9l.5-3.5H14z" />
+            </svg>
+          </a>
+          <a href="https://instagram.com" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zm8.7 1.7a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM12 7.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2z" />
+            </svg>
+          </a>
+          <a href="https://twitter.com" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14.4 10.5 21.5 2h-3.1l-5.5 6.6L8.5 2H2.2l7.5 11.1L2 22h3.1l6.1-7.1 4.8 7.1h6.2l-7.8-11.5zm-2.1 2.4-1.1-1.6L6.1 4.4h1.3l4.3 6.1 1.1 1.6 5.4 7.6h-1.3l-4.6-6.8z" />
+            </svg>
+          </a>
+          <a href="https://tiktok.com" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16.6 2c.4 3 2.1 4.8 5 5v3.4c-1.8.1-3.4-.5-5-1.6v6.5c0 4.8-5.2 8.1-9.5 5.7-4.8-2.7-4.3-9.8.8-11.8 1-.4 2-.5 3.1-.3v3.6c-.5-.2-1.1-.2-1.7 0-2.1.7-2.7 3.6-1 5.1 1.7 1.6 4.7.4 4.7-2V2h3.6z" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+      <div class="footer-bottom">© 2026 Organic Man Coffee Trike. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+      const siteHeader = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
+      menuToggle.addEventListener("click", () => {
+        const isOpen = siteHeader.classList.toggle("menu-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      });
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          siteHeader.classList.remove("menu-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+        });
+      });
+    </script>
+  </body>
+</html>
