@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organic Man Coffee Trike</title>
+    <meta name="description" content="Travel the world, one cup at a time..." />
+    <link rel="icon" href="src/assets/icon-coffee.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="src/assets/icon-coffee.ico" type="image/x-icon" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Organic Man Coffee Trike" />
+    <meta property="og:description" content="Travel the world, one cup at a time..." />
+    <meta property="og:image" content="src/assets/meta-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Organic Man Coffee Trike" />
+    <meta name="twitter:description" content="Travel the world, one cup at a time..." />
+    <meta name="twitter:image" content="src/assets/meta-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
+    <style>
+      :root {
+        --white: #fffdf8;
+        --amber: #ef7f22;
+        --ink: #10100e;
+        --shadow: rgba(10, 16, 14, 0.46);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: #86bad8 url("src/assets/background-base.png") center center / cover fixed no-repeat;
+        color: var(--white);
+        font-family: "DM Sans", Arial, sans-serif;
+      }
+
+      .webgl {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        pointer-events: none;
+      }
+
+      .final-table {
+        position: fixed;
+        left: 50%;
+        bottom: -2px;
+        z-index: 1;
+        width: max(100vw, 1600px);
+        height: clamp(190px, 33vh, 320px);
+        object-fit: cover;
+        object-position: center bottom;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateX(-50%) translateY(110%);
+        filter: saturate(1.1) contrast(1.05);
+        transition: opacity 0.18s linear, transform 0.18s linear;
+        will-change: transform, opacity;
+      }
+
+      .site-header {
+        position: fixed;
+        top: clamp(18px, 2.4vw, 34px);
+        left: clamp(18px, 3vw, 42px);
+        right: clamp(22px, 5vw, 86px);
+        z-index: 20;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        pointer-events: none;
+        transition: opacity 0.42s ease, transform 0.42s ease;
+      }
+
+      .site-header.hidden {
+        opacity: 0;
+        transform: translateY(-22px);
+      }
+
+      .brand {
+        width: clamp(126px, 13vw, 206px);
+        filter: drop-shadow(0 4px 9px rgba(0, 0, 0, 0.48));
+        pointer-events: auto;
+      }
+
+      .brand img,
+      .table {
+        display: block;
+        width: 100%;
+      }
+
+      .main-nav {
+        display: flex;
+        gap: clamp(26px, 4vw, 58px);
+        align-items: center;
+        padding-top: 8px;
+        pointer-events: auto;
+      }
+
+      .main-nav a {
+        color: var(--white);
+        font-size: clamp(18px, 1.75vw, 28px);
+        font-weight: 500;
+        text-decoration: none;
+        text-shadow: 0 2px 4px var(--shadow);
+        transition: color 0.24s ease, transform 0.24s ease, text-shadow 0.24s ease;
+      }
+
+      .main-nav a:hover,
+      .main-nav a.active {
+        color: #ffd889;
+        text-decoration: underline;
+        text-underline-offset: 5px;
+        transform: translateY(-1px);
+        text-shadow: 0 0 16px rgba(255, 216, 137, 0.5);
+      }
+
+      #loader {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: grid;
+        place-items: center;
+        background: #0d0a07;
+        transition: opacity 0.55s ease;
+      }
+
+      .loader-inner {
+        width: min(76vw, 520px);
+        text-align: center;
+      }
+
+      .loader-title {
+        margin-bottom: 22px;
+        color: var(--amber);
+        font-size: clamp(17px, 2vw, 28px);
+        font-weight: 800;
+        letter-spacing: 0.22em;
+      }
+
+      .loader-track {
+        height: 3px;
+        overflow: hidden;
+        background: rgba(239, 127, 34, 0.24);
+      }
+
+      .loader-bar {
+        width: 0%;
+        height: 100%;
+        background: var(--amber);
+        transition: width 0.22s ease;
+      }
+
+      main {
+        position: relative;
+        z-index: 5;
+      }
+
+      .section {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .copy {
+        position: absolute;
+        z-index: 9;
+        color: var(--white);
+        text-shadow: 0 3px 4px rgba(0, 0, 0, 0.52);
+        pointer-events: none;
+      }
+
+      .copy::before {
+        position: absolute;
+        inset: -22px -28px;
+        z-index: -1;
+        border-radius: 8px;
+        content: "";
+        background: linear-gradient(135deg, rgba(10, 24, 18, 0.34), rgba(10, 24, 18, 0.12));
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+        opacity: 0.74;
+        backdrop-filter: blur(2px);
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: var(--amber);
+        font-size: clamp(19px, 1.6vw, 26px);
+        font-weight: 800;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.38);
+      }
+
+      .headline {
+        margin: 0;
+        font-size: clamp(48px, 6.1vw, 88px);
+        font-weight: 500;
+        line-height: 1.22;
+        letter-spacing: 0.01em;
+      }
+
+      .body-copy {
+        margin: 14px 0 0;
+        max-width: 620px;
+        font-size: clamp(18px, 1.5vw, 24px);
+        font-weight: 500;
+        line-height: 1.36;
+      }
+
+      .accent {
+        color: #dd7a28;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.72s ease, transform 0.72s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .coverage .copy {
+        top: 27vh;
+        right: clamp(70px, 9vw, 145px);
+        width: min(41vw, 620px);
+        text-align: center;
+      }
+
+      .ritual .copy {
+        top: 28vh;
+        left: clamp(52px, 13vw, 210px);
+        width: min(46vw, 700px);
+      }
+
+      .products {
+        padding: clamp(76px, 8vw, 120px) clamp(40px, 4.5vw, 70px) 60px;
+      }
+
+      .products .section-title {
+        position: relative;
+        z-index: 9;
+        margin: 0 0 48px;
+        text-align: center;
+        color: var(--white);
+        font-size: clamp(52px, 6vw, 84px);
+        font-weight: 400;
+        line-height: 1;
+        text-shadow: 0 5px 5px var(--shadow);
+      }
+
+      .product-grid {
+        position: relative;
+        z-index: 9;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(28px, 5vw, 82px);
+        align-items: stretch;
+      }
+
+      .product-card {
+        min-height: 548px;
+        overflow: hidden;
+        padding: 14px 14px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.66);
+        border-radius: 14px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(236, 242, 230, 0.84)),
+          rgba(245, 248, 244, 0.82);
+        box-shadow: 0 24px 48px rgba(25, 45, 30, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.96);
+        color: #10130f;
+        text-align: center;
+        backdrop-filter: blur(8px);
+        transition: transform 0.28s ease, box-shadow 0.28s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 28px 46px rgba(25, 45, 30, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      }
+
+      .product-image-panel {
+        display: grid;
+        min-height: 300px;
+        place-items: center;
+        border: 1px solid rgba(54, 83, 43, 0.12);
+        border-radius: 11px;
+        background:
+          radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 1), rgba(239, 246, 232, 0.9) 58%, rgba(215, 229, 204, 0.76)),
+          linear-gradient(135deg, rgba(255, 247, 220, 0.42), rgba(59, 92, 47, 0.08));
+      }
+
+      .product-image-panel img {
+        width: min(62%, 230px);
+        filter: drop-shadow(0 12px 13px rgba(0, 0, 0, 0.2));
+      }
+
+      .product-card h3 {
+        margin: 18px 0 8px;
+        font-size: clamp(22px, 1.8vw, 29px);
+        font-weight: 800;
+        line-height: 1.1;
+        color: #182114;
+      }
+
+      .product-card p {
+        margin: 0 auto;
+        max-width: 330px;
+        color: rgba(14, 18, 13, 0.74);
+        font-size: clamp(15px, 1.05vw, 18px);
+        line-height: 1.36;
+      }
+
+      .product-meta {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin: 12px 0 14px;
+      }
+
+      .product-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(59, 92, 47, 0.1);
+        color: #36532b;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      
+
+      .conclusion .copy {
+        top: 21vh;
+        right: clamp(70px, 10vw, 180px);
+        width: min(43vw, 670px);
+      }
+
+      .cta-button {
+        display: inline-flex;
+        min-width: 184px;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 26px;
+        margin-left: min(29vw, 420px);
+        border: 1px solid rgba(16, 16, 14, 0.18);
+        border-radius: 999px;
+        background: linear-gradient(135deg, #fff6dc, #eeb16e);
+        color: #19130d;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        text-shadow: none;
+        pointer-events: auto;
+        box-shadow: 0 14px 26px rgba(64, 34, 10, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.58);
+        transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        filter: saturate(1.08);
+        box-shadow: 0 18px 30px rgba(64, 34, 10, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+
+      .copyright {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        z-index: 10;
+        color: var(--white);
+        text-align: center;
+        font-size: clamp(14px, 1.35vw, 20px);
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.45);
+      }
+
+      @media (max-width: 900px) {
+        .site-header {
+          align-items: center;
+        }
+
+        .brand {
+          width: 106px;
+        }
+
+        .main-nav {
+          gap: 16px;
+        }
+
+        .main-nav a {
+          font-size: 15px;
+        }
+
+        .coverage .copy,
+        .ritual .copy,
+        .conclusion .copy {
+          top: 16vh;
+          left: 24px;
+          right: 24px;
+          width: auto;
+          text-align: left;
+        }
+
+        .headline {
+          font-size: 44px;
+        }
+
+        .product-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .product-card {
+          min-height: auto;
+        }
+
+        .cta-button {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader">
+      <div class="loader-inner">
+        <div class="loader-title">ORGANIC MAN COFFEE</div>
+        <div class="loader-track"><div class="loader-bar"></div></div>
+      </div>
+    </div>
+
+    <canvas class="webgl"></canvas>
+    <img class="final-table" src="src/assets/table-brown.png" alt="" aria-hidden="true" />
+
+    <header class="site-header">
+      <a class="brand" href="#start" aria-label="Organic Man Coffee Trike home">
+        <img src="src/assets/organic-man-logo-green.png" alt="Organic Man Coffee Trike" />
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="active" href="#start">Home</a>
+        <a href="#products">Products</a>
+        <a href="#coverage">Our Story</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section start" id="start" aria-label="Start section"></section>
+
+      <section class="section coverage" id="coverage" aria-label="Coverage section">
+        <div class="copy reveal">
+          <p class="eyebrow">Coverage</p>
+          <h2 class="headline">Local<br />To The<br />Whole World</h2>
+          <p class="body-copy">
+            From <span class="accent">South Texas</span> to the world! We offer homes and businesses AIR ROASTED
+            SPECIALTY COFFEE certified organic and single origin.
+          </p>
+        </div>
+      </section>
+
+      <section class="section ritual" id="ritual" aria-label="Cup enhancement section">
+        <div class="copy reveal">
+          <p class="eyebrow">The Ritual</p>
+          <h2 class="headline">A Cup<br />Worth<br />Waking Up For.</h2>
+          <p class="body-copy">
+            Our medium roast is designed for the morning moment: smooth enough to drink black, complex enough to keep
+            you curious.
+          </p>
+        </div>
+      </section>
+
+      <section class="section products" id="products" aria-label="Top products section">
+        <h2 class="section-title reveal">Our Fans Favorites</h2>
+        <div class="product-grid">
+          <article class="product-card reveal">
+            <div class="product-image-panel">
+              <img src="src/assets/organic-man-coffee-bag.png" alt="The Great Beans coffee bag" />
+            </div>
+            <h3>The Great Beans</h3>
+            <div class="product-meta">
+              <span class="product-pill">Organic</span>
+              <span class="product-pill">Medium</span>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+            </p>
+          </article>
+          <article class="product-card reveal">
+            <div class="product-image-panel">
+              <img src="src/assets/organic-man-coffee-bag.png" alt="The Great Beans coffee bag" />
+            </div>
+            <h3>The Great Beans</h3>
+            <div class="product-meta">
+              <span class="product-pill">Single Origin</span>
+              <span class="product-pill">Fresh</span>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+            </p>
+          </article>
+          <article class="product-card reveal">
+            <div class="product-image-panel">
+              <img src="src/assets/organic-man-coffee-bag.png" alt="The Great Beans coffee bag" />
+            </div>
+            <h3>The Great Beans</h3>
+            <div class="product-meta">
+              <span class="product-pill">Air Roasted</span>
+              <span class="product-pill">Bold</span>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section conclusion" id="conclusion" aria-label="Conclusion section">
+        <div class="copy reveal">
+          <p class="eyebrow">Are You Ready?</p>
+          <h2 class="headline">Got Caught?<br />Explore<br />Our Products</h2>
+          <p class="body-copy">We have various products that you can inspect. We guarantee you will find something that you love.</p>
+          <a class="cta-button" href="#products">Explore -></a>
+        </div>
+        <div class="copyright">© 2026 Organic Man Coffee Trike. All Rights Reserved.</div>
+      </section>
+    </main>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+      const canvas = document.querySelector(".webgl");
+      const header = document.querySelector(".site-header");
+      const finalTable = document.querySelector(".final-table");
+      const loaderScreen = document.querySelector("#loader");
+      const loaderBar = document.querySelector(".loader-bar");
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 0, 8);
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.5;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      scene.add(new THREE.AmbientLight(0xfff4dd, 1.15));
+
+      const keyLight = new THREE.DirectionalLight(0xffffff, 3);
+      keyLight.position.set(-3, 5, 4);
+      keyLight.castShadow = true;
+      scene.add(keyLight);
+
+      const fillLight = new THREE.PointLight(0xffd4a0, 2.4, 20);
+      fillLight.position.set(3, 1.5, 5);
+      scene.add(fillLight);
+
+      const rimLight = new THREE.PointLight(0x8fcfff, 1.8, 18);
+      rimLight.position.set(-4, 2, -3);
+      scene.add(rimLight);
+
+      const gltfLoader = new GLTFLoader();
+      const assets = {
+        cup: "public/3d models/Organic_Man_Coffee_Cup.glb",
+        bean: "public/3d models/Organic_Man_Coffee_Bean.glb",
+        bag: "public/3d models/Organic_Man_Coffee_Bag_Green.glb"
+      };
+
+      const progress = new Map();
+      const updateProgress = () => {
+        const done = [...progress.values()].reduce((sum, value) => sum + value, 0);
+        loaderBar.style.width = `${Math.round((done / Object.keys(assets).length) * 100)}%`;
+      };
+
+      const loadModel = ([name, path]) =>
+        new Promise((resolve, reject) => {
+          gltfLoader.load(
+            path,
+            (gltf) => {
+              progress.set(name, 1);
+              updateProgress();
+              resolve([name, gltf.scene]);
+            },
+            (event) => {
+              if (event.total) {
+                progress.set(name, Math.min(event.loaded / event.total, 1));
+                updateProgress();
+              }
+            },
+            reject
+          );
+        });
+
+      const prepareModel = (object) => {
+        object.traverse((child) => {
+          if (!child.isMesh) return;
+          child.castShadow = true;
+          child.receiveShadow = true;
+          if (child.material) {
+            child.material = Array.isArray(child.material)
+              ? child.material.map((material) => material.clone())
+              : child.material.clone();
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((material) => {
+              material.transparent = true;
+              material.needsUpdate = true;
+            });
+          }
+        });
+      };
+
+      const centerModel = (object) => {
+        const box = new THREE.Box3().setFromObject(object);
+        const center = box.getCenter(new THREE.Vector3());
+        object.children.forEach((child) => {
+          child.position.sub(center);
+        });
+        object.position.set(0, 0, 0);
+      };
+
+      const setOpacity = (object, opacity) => {
+        object.traverse((child) => {
+          if (!child.isMesh || !child.material) return;
+          const materials = Array.isArray(child.material) ? child.material : [child.material];
+          materials.forEach((material) => {
+            material.opacity = opacity;
+            material.transparent = opacity < 1;
+            material.depthWrite = opacity > 0.35;
+          });
+        });
+      };
+
+      const models = Object.fromEntries(await Promise.all(Object.entries(assets).map(loadModel)));
+      prepareModel(models.cup);
+      prepareModel(models.bean);
+      prepareModel(models.bag);
+      centerModel(models.cup);
+      centerModel(models.bean);
+      centerModel(models.bag);
+
+      const cup = models.cup;
+      cup.scale.setScalar(2.45);
+      scene.add(cup);
+
+      const bag = models.bag;
+      bag.scale.setScalar(1.65);
+      setOpacity(bag, 0);
+      scene.add(bag);
+
+      const beans = [];
+      const beanLayout = [
+        [-4.8, 2.6, -0.8, 0.55, -0.35],
+        [4.3, 1.5, -1.2, 0.44, 0.35],
+        [-5.4, -1.1, -0.6, 0.42, 0.15],
+        [4.2, -1.7, -1.1, 0.48, 0.2],
+        [-4.9, -3.1, -0.5, 0.56, 1.45],
+        [0.9, 2.8, -1.6, 0.4, 0.2],
+        [2.8, 3.3, -1, 0.5, 1.5]
+      ];
+
+      beanLayout.forEach(([x, y, z, scale, rz], index) => {
+        const bean = models.bean.clone(true);
+        prepareModel(bean);
+        bean.position.set(x, y, z);
+        bean.scale.setScalar(scale);
+        bean.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, rz);
+        bean.userData.base = bean.position.clone();
+        bean.userData.speed = 0.65 + index * 0.08;
+        scene.add(bean);
+        beans.push(bean);
+      });
+
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const smoothstep = (edge0, edge1, value) => {
+        const x = Math.min(Math.max((value - edge0) / (edge1 - edge0), 0), 1);
+        return x * x * (3 - 2 * x);
+      };
+
+      const states = [
+        { cupPos: [0, -0.55, 0], cupRot: [0, 0.02, 0], cupScale: 2.65, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
+        { cupPos: [-3.35, -0.55, 0], cupRot: [0, -0.05, 0], cupScale: 1.85, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
+        { cupPos: [2.65, -0.42, 0], cupRot: [0, 0, -0.72], cupScale: 2.05, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
+        { cupPos: [0, -5, 0], cupRot: [0, 0, 0], cupScale: 1.5, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
+        { cupPos: [-3.82, -1.17, 0.72], cupRot: [0, -0.08, 0], cupScale: 1.27, bagOpacity: 1, bagPos: [-1.62, -0.85, 0.68], bagScale: 1.4, tableOpacity: 1 }
+      ];
+
+      const sectionCount = states.length;
+      let cupBaseY = 0;
+      let cupFloatAmount = 0.045;
+      const applyScrollState = () => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progressValue = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+        const scaled = progressValue * (sectionCount - 1);
+        const index = Math.min(Math.floor(scaled), sectionCount - 2);
+        const local = scaled - index;
+        const eased = smoothstep(0, 1, local);
+        const from = states[index];
+        const to = states[index + 1];
+
+        cup.position.set(
+          lerp(from.cupPos[0], to.cupPos[0], eased),
+          lerp(from.cupPos[1], to.cupPos[1], eased),
+          lerp(from.cupPos[2], to.cupPos[2], eased)
+        );
+        cupBaseY = cup.position.y;
+        cup.rotation.set(
+          lerp(from.cupRot[0], to.cupRot[0], eased),
+          lerp(from.cupRot[1], to.cupRot[1], eased),
+          lerp(from.cupRot[2], to.cupRot[2], eased)
+        );
+        cup.scale.setScalar(lerp(from.cupScale, to.cupScale, eased));
+
+        bag.position.set(
+          lerp(from.bagPos[0], to.bagPos[0], eased),
+          lerp(from.bagPos[1], to.bagPos[1], eased),
+          lerp(from.bagPos[2], to.bagPos[2], eased)
+        );
+        bag.rotation.set(0, -0.12, 0);
+        bag.scale.setScalar(lerp(from.bagScale, to.bagScale, eased));
+        setOpacity(bag, lerp(from.bagOpacity, to.bagOpacity, eased));
+        const tableProgress = lerp(from.tableOpacity, to.tableOpacity, eased);
+        finalTable.style.opacity = tableProgress.toFixed(3);
+        finalTable.style.transform = `translateX(-50%) translateY(${(1 - tableProgress) * 110}%)`;
+        cupFloatAmount = 0.045 * (1 - tableProgress);
+
+        header.classList.toggle("hidden", window.scrollY > 20);
+      };
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.28 }
+      );
+      document.querySelectorAll(".reveal").forEach((element, index) => {
+        element.style.transitionDelay = `${Math.min(index % 4, 3) * 90}ms`;
+        revealObserver.observe(element);
+      });
+
+      const links = [...document.querySelectorAll(".main-nav a")];
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.find((entry) => entry.isIntersecting);
+          if (!visible) return;
+          links.forEach((link) => link.classList.remove("active"));
+          const active = links.find((link) => link.getAttribute("href") === `#${visible.target.id}`);
+          if (active) active.classList.add("active");
+        },
+        { threshold: 0.45 }
+      );
+      ["start", "products", "coverage"].forEach((id) => navObserver.observe(document.querySelector(`#${id}`)));
+
+      window.addEventListener("scroll", applyScrollState, { passive: true });
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        applyScrollState();
+      });
+
+      const clock = new THREE.Clock();
+      const render = () => {
+        const elapsed = clock.getElapsedTime();
+        cup.position.y = cupBaseY + Math.sin(elapsed * 1.5) * cupFloatAmount;
+        beans.forEach((bean, index) => {
+          bean.position.y = bean.userData.base.y + Math.sin(elapsed * bean.userData.speed + index) * 0.12;
+          bean.position.x = bean.userData.base.x + Math.cos(elapsed * bean.userData.speed + index) * 0.08;
+          bean.rotation.y += 0.008 + index * 0.0008;
+          bean.rotation.x += 0.003;
+        });
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+      };
+
+      applyScrollState();
+      render();
+      loaderScreen.style.opacity = "0";
+      setTimeout(() => {
+        loaderScreen.style.display = "none";
+      }, 600);
+    </script>
+  </body>
+</html>
