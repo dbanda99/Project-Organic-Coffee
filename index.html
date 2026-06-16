@@ -43,11 +43,20 @@
       }
 
       body {
+        position: relative;
         margin: 0;
         overflow-x: hidden;
-        background: #86bad8 url("src/assets/background-base.png") center center / cover fixed no-repeat;
+        background: #86bad8;
         color: var(--white);
         font-family: "DM Sans", Arial, sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        content: "";
+        background: url("src/assets/background-base.png") center center / cover no-repeat;
       }
 
       .webgl {
@@ -133,6 +142,51 @@
         text-shadow: 0 0 16px rgba(255, 216, 137, 0.5);
       }
 
+      .menu-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        background: rgba(12, 28, 22, 0.48);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+        color: var(--white);
+        cursor: pointer;
+        pointer-events: auto;
+        backdrop-filter: blur(8px);
+      }
+
+      .menu-toggle span,
+      .menu-toggle::before,
+      .menu-toggle::after {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+        content: "";
+        transition: transform 0.24s ease, opacity 0.24s ease;
+      }
+
+      .menu-toggle {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .site-header.menu-open .menu-toggle::before {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .site-header.menu-open .menu-toggle span {
+        opacity: 0;
+      }
+
+      .site-header.menu-open .menu-toggle::after {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
       #loader {
         position: fixed;
         inset: 0;
@@ -148,24 +202,25 @@
         text-align: center;
       }
 
-      .loader-title {
-        margin-bottom: 22px;
-        color: var(--amber);
-        font-size: clamp(17px, 2vw, 28px);
-        font-weight: 800;
-        letter-spacing: 0.22em;
+      .loader-logo {
+        width: min(1.68in, 1.7in);
+        height: auto;
+        margin: 0 auto 22px;
+        object-fit: contain;
       }
 
       .loader-track {
-        height: 3px;
+        height: 6px;
         overflow: hidden;
-        background: rgba(239, 127, 34, 0.24);
+        border: 2px solid #000;
+        border-radius: 999px;
+        background: transparent;
       }
 
       .loader-bar {
         width: 0%;
         height: 100%;
-        background: var(--amber);
+        background: #fff;
         transition: width 0.22s ease;
       }
 
@@ -177,6 +232,7 @@
       .section {
         position: relative;
         min-height: 100vh;
+        min-height: 100svh;
         overflow: hidden;
         isolation: isolate;
       }
@@ -400,47 +456,175 @@
       }
 
       @media (max-width: 900px) {
+        body {
+          background: #86bad8;
+        }
+
+        .final-table {
+          width: 150vw;
+          height: 38svh;
+        }
+
         .site-header {
           align-items: center;
+          top: 14px;
+          left: 16px;
+          right: 16px;
         }
 
         .brand {
-          width: 106px;
+          width: 92px;
         }
 
         .main-nav {
-          gap: 16px;
+          position: fixed;
+          top: 70px;
+          left: 12px;
+          right: 12px;
+          display: grid;
+          gap: 4px;
+          width: calc(100vw - 24px);
+          padding: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.32);
+          border-radius: 14px;
+          background: rgba(10, 24, 18, 0.76);
+          box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+          opacity: 0;
+          transform: translateY(-8px);
+          transform-origin: top center;
+          pointer-events: none;
+          backdrop-filter: blur(10px);
+          transition: opacity 0.24s ease, transform 0.24s ease;
         }
 
         .main-nav a {
+          padding: 11px 12px;
+          border-radius: 10px;
           font-size: 15px;
+          text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+          background: rgba(255, 216, 137, 0.12);
+          text-decoration: none;
+        }
+
+        .menu-toggle {
+          display: flex;
+          transform: translateY(-4px);
+        }
+
+        .site-header.menu-open .main-nav {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
         }
 
         .coverage .copy,
         .ritual .copy,
         .conclusion .copy {
-          top: 16vh;
-          left: 24px;
-          right: 24px;
+          top: 10svh;
+          left: 18px;
+          right: 18px;
           width: auto;
           text-align: left;
         }
 
+        .copy::before {
+          inset: -14px -16px;
+          border-radius: 10px;
+          background: linear-gradient(135deg, rgba(8, 19, 14, 0.52), rgba(8, 19, 14, 0.24));
+          opacity: 0.86;
+        }
+
+        .eyebrow {
+          margin-bottom: 8px;
+          font-size: 16px;
+        }
+
         .headline {
-          font-size: 44px;
+          font-size: clamp(36px, 12vw, 54px);
+          line-height: 1.08;
+        }
+
+        .body-copy {
+          max-width: 92vw;
+          font-size: 16px;
+          line-height: 1.42;
+        }
+
+        .products {
+          padding: 68px 18px 48px;
+        }
+
+        .products .section-title {
+          margin-bottom: 24px;
+          font-size: clamp(38px, 12vw, 56px);
+          line-height: 1.05;
         }
 
         .product-grid {
           grid-template-columns: 1fr;
-          gap: 24px;
+          gap: 18px;
         }
 
         .product-card {
           min-height: auto;
+          padding: 10px 10px 18px;
+          border-radius: 12px;
+        }
+
+        .product-image-panel {
+          min-height: 210px;
+        }
+
+        .product-image-panel img {
+          width: min(48%, 170px);
+        }
+
+        .product-card h3 {
+          margin-top: 12px;
+          font-size: 22px;
+        }
+
+        .product-card p {
+          max-width: 92%;
+          font-size: 14px;
+          line-height: 1.34;
         }
 
         .cta-button {
+          min-width: 154px;
+          min-height: 42px;
           margin-left: 0;
+          font-size: 15px;
+        }
+
+        .copyright {
+          bottom: 7px;
+          padding: 0 12px;
+          font-size: 12px;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .brand {
+          width: 100px;
+        }
+
+        .products {
+          padding-top: 54px;
+        }
+
+        .coverage .copy,
+        .ritual .copy,
+        .conclusion .copy {
+          top: 8svh;
+        }
+
+        .conclusion .copy {
+          top: 7svh;
         }
       }
     </style>
@@ -448,7 +632,12 @@
   <body>
     <div id="loader">
       <div class="loader-inner">
-        <div class="loader-title">ORGANIC MAN COFFEE</div>
+        <img
+          class="loader-logo"
+          src="src/assets/organic_man_coffee_logo_green.png"
+          alt="Organic Man Coffee"
+          onerror="this.onerror=null; this.src='src/assets/organic-man-logo-green.png';"
+        />
         <div class="loader-track"><div class="loader-bar"></div></div>
       </div>
     </div>
@@ -460,7 +649,10 @@
       <a class="brand" href="#start" aria-label="Organic Man Coffee Trike home">
         <img src="src/assets/organic-man-logo-green.png" alt="Organic Man Coffee Trike" />
       </a>
-      <nav class="main-nav" aria-label="Primary navigation">
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false">
+        <span></span>
+      </button>
+      <nav class="main-nav" id="primary-nav" aria-label="Primary navigation">
         <a class="active" href="#start">Home</a>
         <a href="#products">Products</a>
         <a href="#coverage">Our Story</a>
@@ -560,28 +752,42 @@
 
       const canvas = document.querySelector(".webgl");
       const header = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
       const finalTable = document.querySelector(".final-table");
       const loaderScreen = document.querySelector("#loader");
       const loaderBar = document.querySelector(".loader-bar");
+      const mobileQuery = window.matchMedia("(max-width: 900px)");
+      const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const lowPowerDevice =
+        mobileQuery.matches ||
+        reduceMotionQuery.matches ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        (navigator.deviceMemory && navigator.deviceMemory <= 4);
+      const maxPixelRatio = lowPowerDevice ? 1.15 : 1.5;
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
       camera.position.set(0, 0, 8);
 
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: !lowPowerDevice,
+        alpha: true,
+        powerPreference: "high-performance"
+      });
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.5;
-      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.enabled = !lowPowerDevice;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
       scene.add(new THREE.AmbientLight(0xfff4dd, 1.15));
 
       const keyLight = new THREE.DirectionalLight(0xffffff, 3);
       keyLight.position.set(-3, 5, 4);
-      keyLight.castShadow = true;
+      keyLight.castShadow = !lowPowerDevice;
       scene.add(keyLight);
 
       const fillLight = new THREE.PointLight(0xffd4a0, 2.4, 20);
@@ -594,9 +800,9 @@
 
       const gltfLoader = new GLTFLoader();
       const assets = {
-        cup: "public/3d models/Organic_Man_Coffee_Cup.glb",
-        bean: "public/3d models/Organic_Man_Coffee_Bean.glb",
-        bag: "public/3d models/Organic_Man_Coffee_Bag_Green.glb"
+        cup: ["3d models/Organic_Man_Coffee_Cup.glb", "public/3d models/Organic_Man_Coffee_Cup.glb"],
+        bean: ["3d models/Organic_Man_Coffee_Bean.glb", "public/3d models/Organic_Man_Coffee_Bean.glb"],
+        bag: ["3d models/Organic_Man_Coffee_Bag_Green.glb", "public/3d models/Organic_Man_Coffee_Bag_Green.glb"]
       };
 
       const progress = new Map();
@@ -605,30 +811,42 @@
         loaderBar.style.width = `${Math.round((done / Object.keys(assets).length) * 100)}%`;
       };
 
-      const loadModel = ([name, path]) =>
+      const loadModel = ([name, paths]) =>
         new Promise((resolve, reject) => {
-          gltfLoader.load(
-            path,
-            (gltf) => {
-              progress.set(name, 1);
-              updateProgress();
-              resolve([name, gltf.scene]);
-            },
-            (event) => {
-              if (event.total) {
-                progress.set(name, Math.min(event.loaded / event.total, 1));
+          const candidates = paths.map((path) => encodeURI(path));
+          const tryLoad = (index = 0) => {
+            gltfLoader.load(
+              candidates[index],
+              (gltf) => {
+                progress.set(name, 1);
                 updateProgress();
+                resolve([name, gltf.scene]);
+              },
+              (event) => {
+                if (event.total) {
+                  progress.set(name, Math.min(event.loaded / event.total, 1));
+                  updateProgress();
+                }
+              },
+              (error) => {
+                if (index < candidates.length - 1) {
+                  tryLoad(index + 1);
+                  return;
+                }
+                reject(error);
               }
-            },
-            reject
-          );
+            );
+          };
+
+          tryLoad();
         });
 
       const prepareModel = (object) => {
         object.traverse((child) => {
           if (!child.isMesh) return;
-          child.castShadow = true;
-          child.receiveShadow = true;
+          child.castShadow = !lowPowerDevice;
+          child.receiveShadow = !lowPowerDevice;
+          child.frustumCulled = true;
           if (child.material) {
             child.material = Array.isArray(child.material)
               ? child.material.map((material) => material.clone())
@@ -636,6 +854,7 @@
             const materials = Array.isArray(child.material) ? child.material : [child.material];
             materials.forEach((material) => {
               material.transparent = true;
+              material.precision = lowPowerDevice ? "mediump" : "highp";
               material.needsUpdate = true;
             });
           }
@@ -681,7 +900,7 @@
       scene.add(bag);
 
       const beans = [];
-      const beanLayout = [
+      const desktopBeanLayout = [
         [-4.8, 2.6, -0.8, 0.55, -0.35],
         [4.3, 1.5, -1.2, 0.44, 0.35],
         [-5.4, -1.1, -0.6, 0.42, 0.15],
@@ -690,14 +909,34 @@
         [0.9, 2.8, -1.6, 0.4, 0.2],
         [2.8, 3.3, -1, 0.5, 1.5]
       ];
+      const mobileBeanLayout = [
+        [-2.25, 3.05, -0.9, 0.32, -0.35],
+        [2.35, 2.25, -1.2, 0.28, 0.35],
+        [-2.45, -1.55, -0.6, 0.28, 0.15],
+        [2.35, -2.15, -1.1, 0.3, 0.2],
+        [-1.9, -3.25, -0.5, 0.34, 1.45],
+        [0.8, 3.25, -1.6, 0.26, 0.2],
+        [2.15, 3.55, -1, 0.3, 1.5],
+        [-1.45, 1.65, -0.8, 0.24, -0.7],
+        [1.55, 0.82, -1.25, 0.22, 0.6],
+        [-2.22, 0.18, -1.05, 0.23, 0.2],
+        [2.16, -0.72, -0.9, 0.25, -0.35],
+        [0.08, -2.72, -1.25, 0.24, 1.1]
+      ];
 
-      beanLayout.forEach(([x, y, z, scale, rz], index) => {
+      mobileBeanLayout.forEach((mobileConfig, index) => {
+        const desktopConfig = desktopBeanLayout[index] || [0, -6, -2, 0.001, mobileConfig[4]];
+        const [x, y, z, scale, rz] = desktopConfig;
         const bean = models.bean.clone(true);
         prepareModel(bean);
         bean.position.set(x, y, z);
         bean.scale.setScalar(scale);
         bean.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, rz);
         bean.userData.base = bean.position.clone();
+        bean.userData.desktop = { x, y, z, scale };
+        const mobile = mobileBeanLayout[index] || [x * 0.5, y, z, scale * 0.6, rz];
+        bean.userData.mobile = { x: mobile[0], y: mobile[1], z: mobile[2], scale: mobile[3] };
+        bean.userData.mobilePrimary = index < 7;
         bean.userData.speed = 0.65 + index * 0.08;
         scene.add(bean);
         beans.push(bean);
@@ -709,18 +948,39 @@
         return x * x * (3 - 2 * x);
       };
 
-      const states = [
+      const desktopStates = [
         { cupPos: [0, -0.55, 0], cupRot: [0, 0.02, 0], cupScale: 2.65, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
         { cupPos: [-3.35, -0.55, 0], cupRot: [0, -0.05, 0], cupScale: 1.85, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
         { cupPos: [2.65, -0.42, 0], cupRot: [0, 0, -0.72], cupScale: 2.05, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
         { cupPos: [0, -5, 0], cupRot: [0, 0, 0], cupScale: 1.5, bagOpacity: 0, bagPos: [-1.1, -5, 0], bagScale: 1.4, tableOpacity: 0 },
         { cupPos: [-3.82, -1.17, 0.72], cupRot: [0, -0.08, 0], cupScale: 1.27, bagOpacity: 1, bagPos: [-1.62, -0.85, 0.68], bagScale: 1.4, tableOpacity: 1 }
       ];
+      const mobileStates = [
+        { cupPos: [0, -0.85, 0.1], cupRot: [0, 0.02, 0], cupScale: 1.78, bagOpacity: 0, bagPos: [0, -5, 0], bagScale: 0.9, tableOpacity: 0 },
+        { cupPos: [0, -1.45, 0.18], cupRot: [0, -0.04, 0], cupScale: 1.16, bagOpacity: 0, bagPos: [0, -5, 0], bagScale: 0.9, tableOpacity: 0 },
+        { cupPos: [0.9, -1.42, 0.22], cupRot: [0, 0, -0.64], cupScale: 1.18, bagOpacity: 0, bagPos: [0, -5, 0], bagScale: 0.9, tableOpacity: 0 },
+        { cupPos: [0, -5, 0], cupRot: [0, 0, 0], cupScale: 0.9, bagOpacity: 0, bagPos: [0, -5, 0], bagScale: 0.9, tableOpacity: 0 },
+        { cupPos: [-0.82, -2.02, 0.55], cupRot: [0, -0.08, 0], cupScale: 0.82, bagOpacity: 1, bagPos: [0.58, -1.83, 0.52], bagScale: 0.88, tableOpacity: 1 }
+      ];
 
-      const sectionCount = states.length;
       let cupBaseY = 0;
       let cupFloatAmount = 0.045;
+      const applyResponsiveScene = () => {
+        const layoutKey = mobileQuery.matches ? "mobile" : "desktop";
+        beans.forEach((bean) => {
+          const layout = bean.userData[layoutKey];
+          bean.userData.base.set(layout.x, layout.y, layout.z);
+          bean.scale.setScalar(layout.scale);
+          bean.visible = !lowPowerDevice || bean.userData.mobilePrimary;
+        });
+        camera.position.z = mobileQuery.matches ? 9.2 : 8;
+        camera.fov = mobileQuery.matches ? 42 : 38;
+        camera.updateProjectionMatrix();
+      };
+
       const applyScrollState = () => {
+        const states = mobileQuery.matches ? mobileStates : desktopStates;
+        const sectionCount = states.length;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         const progressValue = maxScroll > 0 ? window.scrollY / maxScroll : 0;
         const scaled = progressValue * (sectionCount - 1);
@@ -754,7 +1014,7 @@
         const tableProgress = lerp(from.tableOpacity, to.tableOpacity, eased);
         finalTable.style.opacity = tableProgress.toFixed(3);
         finalTable.style.transform = `translateX(-50%) translateY(${(1 - tableProgress) * 110}%)`;
-        cupFloatAmount = 0.045 * (1 - tableProgress);
+        cupFloatAmount = (mobileQuery.matches ? 0.025 : 0.045) * (1 - tableProgress);
 
         header.classList.toggle("hidden", window.scrollY > 20);
       };
@@ -773,6 +1033,18 @@
       });
 
       const links = [...document.querySelectorAll(".main-nav a")];
+      menuToggle.addEventListener("click", () => {
+        const isOpen = header.classList.toggle("menu-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      });
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          header.classList.remove("menu-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+        });
+      });
       const navObserver = new IntersectionObserver(
         (entries) => {
           const visible = entries.find((entry) => entry.isIntersecting);
@@ -787,27 +1059,50 @@
 
       window.addEventListener("scroll", applyScrollState, { passive: true });
       window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        clearTimeout(window.__coffeeResizeTimer);
+        window.__coffeeResizeTimer = setTimeout(() => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
+          applyResponsiveScene();
+          applyScrollState();
+        }, 120);
+      });
+      mobileQuery.addEventListener("change", () => {
+        applyResponsiveScene();
         applyScrollState();
       });
 
       const clock = new THREE.Clock();
+      let pageVisible = true;
+      let lastRenderTime = 0;
+      document.addEventListener("visibilitychange", () => {
+        pageVisible = !document.hidden;
+      });
       const render = () => {
+        requestAnimationFrame(render);
+        if (!pageVisible) {
+          return;
+        }
         const elapsed = clock.getElapsedTime();
+        if (lowPowerDevice && elapsed - lastRenderTime < 1 / 40) {
+          return;
+        }
+        lastRenderTime = elapsed;
         cup.position.y = cupBaseY + Math.sin(elapsed * 1.5) * cupFloatAmount;
         beans.forEach((bean, index) => {
-          bean.position.y = bean.userData.base.y + Math.sin(elapsed * bean.userData.speed + index) * 0.12;
-          bean.position.x = bean.userData.base.x + Math.cos(elapsed * bean.userData.speed + index) * 0.08;
-          bean.rotation.y += 0.008 + index * 0.0008;
-          bean.rotation.x += 0.003;
+          if (!bean.visible) return;
+          const driftY = mobileQuery.matches ? 0.06 : 0.12;
+          const driftX = mobileQuery.matches ? 0.035 : 0.08;
+          bean.position.y = bean.userData.base.y + Math.sin(elapsed * bean.userData.speed + index) * driftY;
+          bean.position.x = bean.userData.base.x + Math.cos(elapsed * bean.userData.speed + index) * driftX;
+          bean.rotation.y += (mobileQuery.matches ? 0.004 : 0.008) + index * 0.0005;
+          bean.rotation.x += mobileQuery.matches ? 0.0015 : 0.003;
         });
         renderer.render(scene, camera);
-        requestAnimationFrame(render);
       };
 
+      applyResponsiveScene();
       applyScrollState();
       render();
       loaderScreen.style.opacity = "0";
