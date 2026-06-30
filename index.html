@@ -1260,7 +1260,9 @@
         newsletterForm.querySelector("button").disabled = true;
         setTimeout(closeNewsletter, 1500);
       });
-      setTimeout(openNewsletter, 1100);
+      window.addEventListener("load", () => {
+        setTimeout(openNewsletter, 10000);
+      });
     </script>
 
     <script type="module">
