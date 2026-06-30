@@ -1218,35 +1218,14 @@
       </section>
     </main>
 
-    <script type="module">
-      import * as THREE from "three";
-      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-
-      const canvas = document.querySelector(".webgl");
-      const header = document.querySelector(".site-header");
-      const menuToggle = document.querySelector(".menu-toggle");
-      const finalTable = document.querySelector(".final-table");
-      const siteAudio = document.querySelector("#site-audio");
-      const audioToggle = document.querySelector(".audio-toggle");
-      const loaderScreen = document.querySelector("#loader");
-      const loaderBar = document.querySelector(".loader-bar");
+    <script>
       const newsletterModal = document.querySelector("#newsletter-modal");
       const newsletterForm = document.querySelector("#newsletter-form");
       const newsletterEmail = document.querySelector("#newsletter-email");
       const newsletterNote = document.querySelector("#newsletter-note");
       const newsletterClose = document.querySelector(".newsletter-close");
-      const mobileQuery = window.matchMedia("(max-width: 900px)");
-      const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const lowPowerDevice =
-        mobileQuery.matches ||
-        reduceMotionQuery.matches ||
-        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
-        (navigator.deviceMemory && navigator.deviceMemory <= 4);
-      const maxPixelRatio = lowPowerDevice ? 1.15 : 1.5;
 
-      const newsletterStorageKey = "organicManNewsletterDismissed";
       const openNewsletter = () => {
-        if (sessionStorage.getItem(newsletterStorageKey) === "true") return;
         newsletterModal.inert = false;
         newsletterModal.classList.add("is-open");
         newsletterModal.setAttribute("aria-hidden", "false");
@@ -1255,13 +1234,14 @@
           if (newsletterModal.classList.contains("is-open")) newsletterEmail.focus({ preventScroll: true });
         }, 420);
       };
+
       const closeNewsletter = () => {
         newsletterModal.classList.remove("is-open");
         newsletterModal.setAttribute("aria-hidden", "true");
         newsletterModal.inert = true;
         document.body.classList.remove("newsletter-locked");
-        sessionStorage.setItem(newsletterStorageKey, "true");
       };
+
       newsletterClose.addEventListener("click", closeNewsletter);
       newsletterModal.addEventListener("click", (event) => {
         if (event.target === newsletterModal) closeNewsletter();
@@ -1278,9 +1258,31 @@
         newsletterNote.textContent = "You're on the list. Fresh coffee updates are coming your way.";
         newsletterForm.querySelector("button").textContent = "Subscribed";
         newsletterForm.querySelector("button").disabled = true;
-        sessionStorage.setItem(newsletterStorageKey, "true");
         setTimeout(closeNewsletter, 1500);
       });
+      setTimeout(openNewsletter, 1100);
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+      const canvas = document.querySelector(".webgl");
+      const header = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
+      const finalTable = document.querySelector(".final-table");
+      const siteAudio = document.querySelector("#site-audio");
+      const audioToggle = document.querySelector(".audio-toggle");
+      const loaderScreen = document.querySelector("#loader");
+      const loaderBar = document.querySelector(".loader-bar");
+      const mobileQuery = window.matchMedia("(max-width: 900px)");
+      const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const lowPowerDevice =
+        mobileQuery.matches ||
+        reduceMotionQuery.matches ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        (navigator.deviceMemory && navigator.deviceMemory <= 4);
+      const maxPixelRatio = lowPowerDevice ? 1.15 : 1.5;
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -1649,7 +1651,6 @@
       loaderScreen.style.opacity = "0";
       setTimeout(() => {
         loaderScreen.style.display = "none";
-        setTimeout(openNewsletter, 650);
       }, 600);
     </script>
   </body>
